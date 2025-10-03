@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Diluxy — Impulso digital local</title>
+  <meta name="description" content="Diluxy ayuda a microempresas locales a crecer en redes sociales con soluciones accesibles."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --beige: #F5EBDD;
+      --rose: #F48FB1;
+      --rose-700: #A23B5A;
+      --white: #ffffff;
+      --ink: #2A2A2A;
+      --muted: #6B6B6B;
+      --radius: 16px;
+      --shadow: 0 10px 24px rgba(0,0,0,.08);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family:'Outfit',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      color:var(--ink);
+      background: linear-gradient(180deg, var(--beige) 0%, #fff 100%);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    a{color:inherit;text-decoration:none}
+    .container{width:min(1120px, 94%);margin-inline:auto}
+
+    /* Header */
+    header{
+      position:sticky;top:0;background:rgba(255,255,255,.85);backdrop-filter:blur(6px);
+      border-bottom:1px solid rgba(0,0,0,.04); z-index:20;
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;gap:.6rem;align-items:center;font-weight:700}
+    .logo{
+      width:44px;height:44px;display:grid;place-items:center;border-radius:10px;
+      background:linear-gradient(135deg,var(--rose),var(--rose-700));color:var(--white);font-weight:800
+    }
+    .menu{display:flex;gap:1rem;align-items:center}
+    .menu a{padding:.45rem .6rem;border-radius:10px;font-weight:600;color:var(--muted)}
+    .btn{padding:.6rem .95rem;border-radius:12px;font-weight:700;border:0;cursor:pointer}
+    .btn-primary{background:var(--rose);color:var(--white);box-shadow:var(--shadow)}
+    .btn-primary:hover{filter:brightness(.95)}
+    .btn-ghost{background:transparent;border:1px solid rgba(0,0,0,.06);padding:.5rem .8rem}
+
+    /* Slider */
+    .slider {
+      width: 100%;
+      max-width: 300px;
+      margin: 0.5px auto;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      position: relative;
+      height: 480px; /* altura fija */
+    }
+    .slider img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* no recorta */
+      background: #f7d1d1; /* fondo blanco en lugar de negro */
+    }
+
+    /* Hero */
+    .hero{padding:72px 0 36px}
+    .hero-grid{display:grid;grid-template-columns:1fr 420px;gap:36px;align-items:center}
+    .tag{display:inline-flex;align-items:center;gap:.5rem;background:var(--white);border:1px solid rgba(0,0,0,.06);
+      padding:.4rem .7rem;border-radius:999px;color:var(--rose-700);font-weight:700;letter-spacing:.3px}
+    h1{font-size:clamp(1.6rem, 3.6vw, 2.6rem);margin:.6rem 0 0.6rem;line-height:1.05}
+    p.lead{font-size:1rem;color:var(--muted);max-width:56ch}
+    .hero-card{background:var(--white);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);
+      border:1px solid rgba(0,0,0,.06)}
+    .hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .badge{background:var(--beige);border:1px solid rgba(0,0,0,.04);border-radius:999px;padding:.4rem .75rem;font-weight:700;color:#574B44}
+
+    /* Servicios */
+    section{padding:56px 0}
+    .section-title{font-size:1.4rem;margin:0 0 6px}
+    .section-sub{color:var(--muted);margin:0 0 18px}
+    .grid{display:grid;gap:14px}
+    .grid-3{grid-template-columns:repeat(3,1fr)}
+    .card{background:var(--white);border-radius:14px;padding:18px;border:1px solid rgba(0,0,0,.05);box-shadow:var(--shadow)}
+    .chip{display:inline-block;background:var(--rose);color:var(--white);font-weight:700;padding:.28rem .6rem;border-radius:999px;font-size:.8rem;margin-bottom:8px}
+
+    /* Cronograma mini */
+    .timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .step{background:linear-gradient(180deg,var(--beige),#fff);border:1px solid rgba(0,0,0,.05);border-radius:12px;padding:14px}
+    .step h4{margin:0 0 8px;font-size:1rem;color:var(--rose-700)}
+    .step ul{margin:0;padding-left:18px}
+
+    /* Equipo */
+    .team{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .member{background:var(--white);padding:14px;border-radius:12px;border:1px solid rgba(0,0,0,.05);box-shadow:var(--shadow);text-align:center}
+    .avatar{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,var(--rose),var(--rose-700));display:grid;place-items:center;color:#fff;font-weight:800;margin:0 auto 10px}
+    .role{color:var(--muted);font-size:.95rem;margin-top:6px}
+
+    /* Contact */
+    .contact-grid{display:grid;grid-template-columns:1fr 360px;gap:20px;align-items:start}
+    .form{background:var(--white);padding:18px;border-radius:12px;border:1px solid rgba(0,0,0,.05);box-shadow:var(--shadow)}
+    .form label{display:block;font-weight:600;margin-bottom:6px}
+    .form input,.form textarea{width:100%;padding:.6rem .7rem;border-radius:10px;border:1px solid rgba(0,0,0,.08);margin-bottom:12px}
+    .form textarea{min-height:120px;resize:vertical}
+
+    /* CTA */
+    .cta{background:linear-gradient(135deg, var(--rose), var(--rose-700));color:var(--white);border-radius:18px;padding:20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .cta p{margin:0;opacity:.98}
+
+    footer{padding:28px 0;color:#584e49}
+    footer .row{display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap}
+    footer small{color:#8a7f79}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero-grid{grid-template-columns:1fr}
+      .contact-grid{grid-template-columns:1fr}
+      .grid-3,.team,.timeline{grid-template-columns:1fr}
+      .menu{display:none}
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <!-- Logo a la izquierda -->
+      <a class="brand" href="#">
+        <img src="Imagenes/Logotipo joyería ilustrado beige (1).png" alt="Logo de Diluxy" style="height: 60px; border-radius: 12px;">
+        <span>Driluxy</span>
+      </a>
+
+      <!-- Menú a la derecha -->
+      <nav class="menu" aria-label="principal">
+        <a href="#servicios">Servicios</a>
+        <a href="#cronograma">Cronograma</a>
+        <a href="#equipo">Equipo</a>
+        <a href="#contacto" class="btn btn-ghost">Contacto</a>
+        <a href="#contacto" class="btn btn-primary">¡Trabajemos!</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Slider -->
+  <section class="slider">
+    <div class="slides">
+      <img src="Imagenes/Publicidad.1.jpeg" alt="Imagen 1">
+      <img src="Imagenes/Publicidad.2.jpeg" alt="Imagen 2">
+      <img src="Imagenes/publicidad 3.jfif" alt="Imagen 3">
+    </div>
+  </section>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="tag">Impulso digital local</span>
+          <h1>Haz que tu microempresa brille en redes sociales</h1>
+          <p class="lead">Acompañamos a negocios locales con planes accesibles y prácticos en redes sociales — para que ganes visibilidad, confianza y clientes.</p>
+          <div class="hero-badges">
+            <span class="badge">Estrategias accesibles</span>
+            <span class="badge">Enfoque local</span>
+            <span class="badge">Resultados claros</span>
+          </div>
+        </div>
+        <div class="hero-card" role="img" aria-label="Tarjeta de presentación visual">
+          <h3 style="margin:0 0 8px;color:var(--rose-700)">¿Qué hacemos?</h3>
+          <p style="margin:0 0 10px;color:var(--muted)">Gestionamos tus redes, creamos contenido y te asesoramos para que aproveches al máximo el entorno digital.</p>
+          <ul style="margin:0;padding-left:18px">
+            <li>Gestión y calendario de redes sociales</li>
+            <li>Contenido creativo (imágenes y videos cortos)</li>
+            <li>Asesorías y talleres prácticos</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Servicios -->
+    <section id="servicios" class="container">
+      <h2 class="section-title">Servicios</h2>
+      <p class="section-sub">Soluciones pensadas para microempresas que están empezando.</p>
+      <div class="grid grid-3">
+        <article class="card">
+          <span class="chip">Plan Inicial</span>
+          <h3>Presencia Básica</h3>
+          <p class="section-sub">Optimización de perfiles + 8 piezas de contenido al mes.</p>
+        </article>
+        <article class="card">
+          <span class="chip">Popular</span>
+          <h3>Impulso Local</h3>
+          <p class="section-sub">Gestión mensual de redes, calendario y reportes simples.</p>
+        </article>
+        <article class="card">
+          <span class="chip">A medida</span>
+          <h3>Mentoría Express</h3>
+          <p class="section-sub">Sesiones 1:1 para que aprendas a gestionar tus redes con recursos limitados.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Cronograma -->
+    <section id="cronograma" class="container">
+      <h2 class="section-title">Cronograma inicial (3 meses)</h2>
+      <div class="timeline">
+        <div class="step">
+          <h4>Mes 1 · Formalización</h4>
+          <ul>
+            <li>Registro y papelería</li>
+            <li>Identidad visual básica</li>
+            <li>Apertura de redes</li>
+          </ul>
+        </div>
+        <div class="step">
+          <h4>Mes 2 · Lanzamiento</h4>
+          <ul>
+            <li>Portafolio de servicios</li>
+            <li>Primeras publicaciones</li>
+            <li>Contacto con negocios locales</li>
+          </ul>
+        </div>
+        <div class="step">
+          <h4>Mes 3 · Ejecución</h4>
+          <ul>
+            <li>Primeros clientes</li>
+            <li>Talleres piloto</li>
+            <li>Evaluación y ajustes</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Equipo -->
+    <section id="equipo" class="container">
+      <h2 class="section-title">Equipo</h2>
+      <p class="section-sub">Personas detrás de Diluxy.</p>
+      <div class="team">
+        <div class="member">
+          <div class="avatar" aria-hidden="true">MC</div>
+          <h3>Mariana Cárdenas</h3>
+          <p class="role">Directora General</p>
+        </div>
+        <div class="member">
+          <div class="avatar" aria-hidden="true">LF</div>
+          <h3>Laura Florián</h3>
+          <p class="role">Administradora</p>
+        </div>
+        <div class="member">
+          <div class="avatar" aria-hidden="true">JP</div>
+          <h3>Juana Pieschacón</h3>
+          <p class="role">Gestora de Contenido</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contacto" class="container" style="padding-bottom:70px">
+      <h2 class="section-title">Contacto</h2>
+      <p class="section-sub">Escríbenos y te daremos un plan ajustado a tu microempresa.</p>
+
+      <div class="contact-grid">
+        <div class="form" aria-labelledby="contacto">
+          <form action="https://formspree.io/f/mayvnkzl" method="POST">
+            <label for="name">Nombre</label>
+            <input id="name" name="name" type="text" placeholder="Tu nombre" required>
+
+            <label for="business">Empresa</label>
+            <input id="business" name="business" type="text" placeholder="Nombre de tu negocio">
+
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="tucorreo@ejemplo.com" required>
+
+            <label for="message">Mensaje</label>
+            <textarea id="message" name="message" placeholder="Cuéntanos brevemente qué necesitas..." required></textarea>
+
+            <button type="submit" class="btn btn-primary" style="background:var(--rose);">Enviar mensaje</button>
+          </form>
+        </div>
+
+        <aside style="display:flex;flex-direction:column;gap:12px">
+          <div class="card" style="padding:16px;">
+            <h4 style="margin:0 0 6px;color:var(--rose-700)">Datos</h4>
+            <p style="margin:0;color:var(--muted)">hola@diluxy.com<br/>+57 300 000 0000 (ejemplo)</p>
+          </div>
+
+          <div class="card" style="padding:16px;">
+            <h4 style="margin:0 0 6px;color:var(--rose-700)">Horario</h4>
+            <p style="margin:0;color:var(--muted)">Lun - Vie: 9:00 - 17:00</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="container" style="margin-bottom:36px">
+      <div class="cta">
+        <div>
+          <h3 style="margin:0">¿Listas para impulsar tu negocio local?</h3>
+          <p style="margin:4px 0 0">Agendemos una llamada corta para evaluar cómo podemos ayudar.</p>
+        </div>
+        <a href="mailto:hola@diluxy.com" class="btn btn-primary" style="background:var(--white);color:var(--rose-700);border-radius:12px;padding:.65rem 1.1rem;">Escríbenos</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container row">
+      <div>
+        <strong>Diluxy</strong><br/>
+        <small>Impulso digital para microempresas locales</small>
+      </div>
+      <small>© <span id="y"></span> Diluxy. Todos los derechos reservados.</small>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Slider automático
+    const slides = document.querySelectorAll(".slider img");
+    let index = 0;
+    function showSlide() {
+      slides.forEach((img, i) => {
+        img.style.display = i === index ? "block" : "none";
+      });
+      index = (index + 1) % slides.length;
+    }
+    showSlide();
+    setInterval(showSlide, 3000);
+  </script>
+</body>
+</html>
